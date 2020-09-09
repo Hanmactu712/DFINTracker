@@ -1,0 +1,64 @@
+﻿
+
+<div class="row">
+        <div class="col-md-2">
+            Years
+        </div>    
+        {#{{current_context.year_balance_sheet}}#}
+        {% for year, balance in current_context.year_balance_sheet.items %}        
+        <div class="col-md-2">
+            <div class="col-md-6">
+                {{year}}
+            </div>
+            <div class="col-md-6">
+                %
+            </div>
+        </div>
+        {% endfor %}   
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            
+            {% for field in current_context.balance_sheet_fields %}        
+            <div class="row">
+                {{field}}
+            </div>
+            {% endfor %} 
+        </div>    
+    
+        {% for year, balance in current_context.year_balance_sheet.items %}        
+        <div class="col-md-2">
+            {% for field, values in balance.items %}        
+            <div class="row">
+                <div class="col-md-6">
+                    {{values.real}}
+                </div>
+                <div class="col-md-6">
+                    {{values.change}}
+                </div>
+            </div>
+
+            {% endfor %} 
+        </div>
+        {% endfor %}   
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            
+        </div>    
+    
+        {% for year, charts in current_context.assets_chart.items %}        
+        <div class="col-md-2">
+            
+            {% for name, value in charts.items %}        
+            <div class="row">
+                <div class="col-md-6">                    
+                    {% include "entities/pie_chart.html" with year=year name=name data=value only %}
+                </div>
+            </div>
+
+            {% endfor %} 
+        </div>
+        {% endfor %}   
+    </div>

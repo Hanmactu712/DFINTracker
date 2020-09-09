@@ -1,0 +1,55 @@
+﻿
+
+<div>    
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <h5>Assets structure and growth</h5>
+            </div>
+            <div>
+                {% include "entities/stacked_area_chart.html" with name="bs_assest" chart_colours=current_context.colours data=current_context.assets_structure_and_growth_by_year only %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h5>Equity structure and growth</h5>
+            </div>
+            <div>
+                {% include "entities/stacked_area_chart.html" with name="bs_equity"  chart_colours=current_context.colours data=current_context.equity_structure_and_growth_by_year only %}
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <h5>Assets structure and growth by percent</h5>
+            </div>
+            <div>
+                {% include "entities/stacked_bar_chart.html" with name="bs_assest" chart_colours=current_context.colours data=current_context.assets_structure_and_growth_percent_by_year only %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h5>Equity structure and growth by percent</h5>
+            </div>
+            <div>
+                {% include "entities/stacked_bar_chart.html" with name="bs_equity" chart_colours=current_context.colours data=current_context.equity_structure_and_growth_percent_by_year only %}
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <h5>Liquidity ratio</h5>
+            </div>
+            <div>
+                {% include "entities/line_chart.html" with name="bs_liquidity_ratio" chart_colours=current_context.colours data=current_context.liquidity_ratio_by_year only %}
+            </div>
+        </div>
+        <div class="col-md-6">
+                      
+        </div>
+    </div>    
+</div>
+
+

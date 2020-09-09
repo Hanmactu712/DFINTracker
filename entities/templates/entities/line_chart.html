@@ -1,0 +1,102 @@
+﻿
+
+<div>    
+    <canvas id="lc_{{name}}" width="500" height="200"></canvas>
+</div>
+
+
+{% block scripts %}    
+    <script>
+    
+    var chart_id = "lc_" + '{{name}}' 
+    var data_labels = {{data.years|safe}}
+    var data = {{data|safe}}
+    var datasets = []
+
+    var colors = {{chart_colours|safe}};
+
+    var index = 0;
+    
+    $.each( data, function( key, value ) {
+        //alert( key + ": " + value );      
+        if(key != 'years'){
+            var dataset_item = {
+                                  label: value.label,
+                                  fill: false,
+                                  backgroundColor: colors[index].fill,
+                                  pointBackgroundColor: colors[index].stroke,
+                                  borderColor: colors[index].stroke,
+                                  pointHighlightStroke: colors[index].stroke,
+                                  borderCapStyle: 'butt',
+                                  data: value.data,
+
+                                }
+        
+        
+            datasets.push(dataset_item);
+            index = index + 1;
+        }
+    });
+    
+    
+    var ctx = document.getElementById(chart_id).getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data_labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            // Can't just just `stacked: true` like the docs say
+            scales: {
+                yAxes: [{
+                    stacked: false,
+                }],
+                xAxes: [{
+                    stacked: false,
+                }]
+            },
+            animation: {
+                duration: 0,        
+                onComplete: function() {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+                    
+                    this.data.datasets.forEach(function(dataset, i) {
+                        
+                      var meta = chartInstance.controller.getDatasetMeta(i);
+                      meta.data.forEach(function(bar, index) {
+                        var data = dataset.data[index];
+                        if(i%2 == 0){
+                            ctx.fillText(data, bar._model.x + data.length + 15, bar._model.y - 3);
+                        }
+                        else{
+                            ctx.fillText(data, bar._model.x - data.length - 15, bar._model.y - 3);
+                        }
+                    });
+                });
+                }
+            },
+            legend: {
+                display: true,
+                position: 'left',               
+                labels: {
+                    fontColor: 'rgb(255, 99, 132)'
+            },
+            tooltips: {
+                mode: 'y'
+            },
+            hover: {
+                animationDuration: 0 // duration of animations when hovering an item
+            },
+            responsiveAnimationDuration: 0
+            }
+        }
+    });
+    </script>
+{% endblock %}

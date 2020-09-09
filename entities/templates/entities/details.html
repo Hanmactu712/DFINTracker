@@ -1,0 +1,37 @@
+﻿{% extends "app/layout.html" %}
+
+{% block styles %}
+    {% load static  %}
+    {#<link rel="stylesheet" type="text/css" href="{% static 'projects/content/project.css' %}" />#}
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h2>{{ title }}</h2>
+<div class="container" style="max-width:100%">            
+    {% if  current_context.entity %}
+       
+        <div class="row">
+            <h3><a href="{% url 'entities:details' current_context.entity.id %}">{{current_context.entity.name}}</a></h3>
+        </div>
+       
+
+        <div class="row">
+            <section><h4>Balance Sheet</h4></section>
+            <div class="balance_sheet_container">
+                <div>
+                    {% include 'entities/balance_sheet_full.html' %}
+                </div>
+            </div>
+
+            <div class="imcome_statement_container">
+                <div>
+                    {% include 'entities/income_statement__full.html' %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+ </div>
+{% endblock %}

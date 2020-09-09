@@ -1,0 +1,53 @@
+﻿
+
+<div>    
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <h5>Income statement structure and growth</h5>
+            </div>
+            <div>
+                {% include "entities/stacked_area_chart.html" with name="it_stacked" chart_colours=current_context.colours data=current_context.income_statement_structure_growth_by_year only %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h5>Income statement structure and growth</h5>
+            </div>
+            <div>
+                {% include "entities/mix_bar_line_chart.html" with name="it_mixed"  chart_colours=current_context.colours data=current_context.income_statement_structure_growth_by_year_type1 only %}
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <h5>Profitability Ratio</h5>
+            </div>
+            <div>
+                {% include "entities/line_chart.html" with name="it_line_profitability" chart_colours=current_context.colours data=current_context.profitability_ratio_by_year only %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h5>Dupont</h5>
+            </div>
+            <div>
+                {% include "entities/line_chart.html" with name="it_line_dupont" chart_colours=current_context.colours data=current_context.dupont_by_year only %}
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <h5>Turnover ratio</h5>
+            </div>
+            <div>
+                {% include "entities/line_chart.html" with name="it_turnover_ratio" chart_colours=current_context.colours data=current_context.turnover_ratio only %}
+            </div>
+        </div>
+        <div class="col-md-6">
+                      
+        </div>
+    </div>
+</div>

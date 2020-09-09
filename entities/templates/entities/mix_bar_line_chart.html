@@ -1,0 +1,97 @@
+﻿
+
+
+
+<div>    
+    <canvas id="lc_{{name}}" width="800" height="400"></canvas>
+</div>
+
+
+{% block scripts %}    
+    <script>
+    
+    var chart_id = "lc_" + '{{name}}' 
+    var data_labels = {{data.years|safe}}
+    var data = {{data|safe}}
+    var datasets = []
+
+    var colors = {{chart_colours|safe}};
+
+    var index = 0;
+    
+    $.each( data, function( key, value ) {
+        //alert( key + ": " + value );      
+        if(key != 'years'){
+            var dataset_item = {
+                                    label: value.label,
+                                    fill: false,
+                                    backgroundColor: colors[index].fill,
+                                    pointBackgroundColor: colors[index].stroke,
+                                    borderColor: colors[index].stroke,
+                                    pointHighlightStroke: colors[index].stroke,
+                                    borderCapStyle: 'butt',
+                                    data: value.data,
+                                    type: 'line'
+
+                                }
+        
+        
+            datasets.push(dataset_item);
+            index = index + 1;
+        }
+    });
+    index = 0;
+    $.each( data, function( key, value ) {
+        //alert( key + ": " + value );      
+        if(key != 'years'){
+            var dataset_item = {
+                                    label: value.label,
+                                    fill: false,
+                                    backgroundColor: colors[index].fill,
+                                    pointBackgroundColor: colors[index].stroke,
+                                    borderColor: colors[index].stroke,
+                                    pointHighlightStroke: colors[index].stroke,
+                                    borderCapStyle: 'butt',
+                                    data: value.data,
+                                    type: 'bar'
+
+                                }
+        
+        
+            datasets.push(dataset_item);
+            index = index + 1;
+        }
+    });
+    
+    var ctx = document.getElementById(chart_id).getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data_labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            // Can't just just `stacked: true` like the docs say
+            scales: {
+                yAxes: [{
+                    stacked: false,
+                }],
+                xAxes: [{
+                    stacked: false,
+                }]
+            },
+            animation: {
+                duration: 0,
+            },
+            legend: {
+            display: true,
+            position: 'left',
+            labels: {
+                fontColor: 'rgb(255, 99, 132)'
+            }
+        }
+        }
+    });
+    </script>
+{% endblock %}
